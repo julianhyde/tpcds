@@ -15,28 +15,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
-package net.hydromatic.tpcds;
+package net.hydromatic.tpcds.test;
 
-import java.util.HashMap;
-import java.util.Map;
+import net.hydromatic.tpcds.*;
 
-/**
- * TPC-DS generator. */
-public class Dsgen {
-  private final Map<String, Object> param;
+import org.junit.Test;
 
-  /** Creates a Dsgen. */
-  public static Dsgen create() {
-    return new Dsgen(new HashMap<String, Object>());
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
+/** Unit test for TPC-DS. */
+public class TpcdsTest {
+  private <E> void assertRowCount(Iterable<E> generator, int expectedRowCount) {
+    int rowCount = 0;
+    for (E row : generator) {
+      ++rowCount;
+    }
+    assertThat(rowCount, equalTo(expectedRowCount));
   }
 
-  private Dsgen(Map<String, Object> param) {
-    this.param = param;
+  @Test public void testCallCenter() {
+    TpcdsTable.CALL_CENTER.builder(Dsgen.create());
+    final Iterable<CallCenter> generator =
+        TpcdsTable.CALL_CENTER.createGenerator(0d, 0, 0);
+    assertRowCount(generator, 0);
   }
 
-  public int mk_w_call_center(Object row, long index) {
-    return 0;
-  }
 }
 
-// End Dsgen.java
+// End TpcdsTest.java

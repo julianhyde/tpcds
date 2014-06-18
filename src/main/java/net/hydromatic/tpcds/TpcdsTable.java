@@ -32,11 +32,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * @param <E> Element type
  */
 public abstract class TpcdsTable<E> {
-  public static final TpcdsTable<Customer> CALL_CENTER =
-      new TpcdsTable<Customer>("call_center", "cc",
+  public static final TpcdsTable<CallCenter> CALL_CENTER =
+      new TpcdsTable<CallCenter>("call_center", "cc",
           CallCenter.Column.values()) {
-        public Iterable<Customer> createGenerator(double scaleFactor, int part,
-            int partCount) {
+        public Iterable<CallCenter> createGenerator(double scaleFactor,
+            int part, int partCount) {
           return new CallCenter.Generator(scaleFactor, part, partCount);
         }
 

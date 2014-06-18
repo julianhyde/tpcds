@@ -15,28 +15,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
-package net.hydromatic.tpcds;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * TPC-DS generator. */
-public class Dsgen {
-  private final Map<String, Object> param;
+ * Unit tests for TPC-DS data generator.
+ */
+package net.hydromatic.tpcds;
 
-  /** Creates a Dsgen. */
-  public static Dsgen create() {
-    return new Dsgen(new HashMap<String, Object>());
-  }
-
-  private Dsgen(Map<String, Object> param) {
-    this.param = param;
-  }
-
-  public int mk_w_call_center(Object row, long index) {
-    return 0;
-  }
-}
-
-// End Dsgen.java
+// End package-info.java

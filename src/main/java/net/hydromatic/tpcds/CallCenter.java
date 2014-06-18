@@ -17,6 +17,8 @@
 */
 package net.hydromatic.tpcds;
 
+import com.google.common.collect.Iterators;
+
 import java.sql.Date;
 import java.util.Iterator;
 
@@ -163,12 +165,12 @@ public class CallCenter implements TpcdsEntity {
   }
 
   /** Value generator. */
-  public static class Generator implements Iterable<Customer> {
+  public static class Generator implements Iterable<CallCenter> {
     public Generator(double scaleFactor, int part, int partCount) {
     }
 
-    public Iterator<Customer> iterator() {
-      return null;
+    public Iterator<CallCenter> iterator() {
+      return Iterators.emptyIterator();
     }
   }
 }
