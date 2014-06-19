@@ -141,7 +141,16 @@ public class CallCenter implements TpcdsEntity {
 
   /** Column definition, */
   public enum Column implements TpcdsColumn<CallCenter> {
-    X;
+    CALL_CENTER_SK("callCenterSk", int.class),
+    CALL_CENTER_ID("callCenterId", int.class);
+
+    private final String columnName;
+    private final Class<?> type;
+
+    Column(String columnName, Class<?> type) {
+      this.columnName = columnName;
+      this.type = type;
+    }
 
     public String getString(CallCenter callCenter) {
       throw new UnsupportedOperationException();
@@ -156,11 +165,11 @@ public class CallCenter implements TpcdsEntity {
     }
 
     public String getColumnName() {
-      throw new UnsupportedOperationException();
+      return columnName;
     }
 
     public Class<?> getType() {
-      throw new UnsupportedOperationException();
+      return type;
     }
   }
 

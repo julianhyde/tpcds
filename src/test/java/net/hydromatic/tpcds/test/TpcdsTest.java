@@ -50,18 +50,18 @@ public class TpcdsTest {
   }
 
   @Test public void testQuery01() {
-    assertThat(Query.Q01.sql(new Random(0)),
+    assertThat(Query.Q01.sql(10, new Random(0)),
         equalTo("with customer_total_return as\n"
             + "(select sr_customer_sk as ctr_customer_sk\n"
             + ",sr_store_sk as ctr_store_sk\n,"
-            + "sum( text({\"SR_RETURN_AMT\",1},{\"SR_FEE\",1},{\"SR_REFUNDED_CASH\",1},{\"SR_RETURN_AMT_INC_TAX\",1},{\"SR_REVERSED_CHARGE\",1},{\"SR_STORE_CREDIT\",1},{\"SR_RETURN_TAX\",1})) as ctr_total_return\n"
+            + "sum(SR_RETURN_AMT_INC_TAX) as ctr_total_return\n"
             + "from store_returns\n"
             + ",date_dim\n"
             + "where sr_returned_date_sk = d_date_sk\n"
-            + "and d_year = random(1998, 2002, uniform)\n"
+            + "and d_year =2001\n"
             + "group by sr_customer_sk\n"
             + ",sr_store_sk)\n"
-            + "[_LIMITA] select [_LIMITB] c_customer_id\n"
+            + " select  c_customer_id\n"
             + "from customer_total_return ctr1\n"
             + ",store\n"
             + ",customer\n"
@@ -69,10 +69,10 @@ public class TpcdsTest {
             + "from customer_total_return ctr2\n"
             + "where ctr1.ctr_store_sk = ctr2.ctr_store_sk)\n"
             + "and s_store_sk = ctr1.ctr_store_sk\n"
-            + "and s_state = ' distmember(fips_county, [COUNTY], 3)'\n"
+            + "and s_state = 'distmember(fips_county, [COUNTY], 3)'\n"
             + "and ctr1.ctr_customer_sk = c_customer_sk\n"
             + "order by c_customer_id\n"
-            + "[_LIMITC]\n"));
+            + "LIMIT 10\n"));
   }
 
   @Test public void testQuery55() {
@@ -89,6 +89,11 @@ public class TpcdsTest {
             + " group by i_brand, i_brand_id\n"
             + " order by ext_price desc, i_brand_id\n"
             + "[_LIMITC]\n"));
+  }
+
+  @Test public void testQuery72() {
+    assertThat(Query.Q72.sql(99, new Random(0)),
+        not(containsString("[")));
   }
 }
 
