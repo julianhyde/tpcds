@@ -50,7 +50,7 @@ public class TpcdsTest {
   }
 
   @Test public void testQuery01() {
-    assertThat(Query.Q01.sql(10, new Random(0)),
+    assertThat(Query.Q01.sql(new Random(0)),
         equalTo("with customer_total_return as\n"
             + "(select sr_customer_sk as ctr_customer_sk\n"
             + ",sr_store_sk as ctr_store_sk\n,"
@@ -72,7 +72,7 @@ public class TpcdsTest {
             + "and s_state = 'distmember(fips_county, [COUNTY], 3)'\n"
             + "and ctr1.ctr_customer_sk = c_customer_sk\n"
             + "order by c_customer_id\n"
-            + "LIMIT 10\n"));
+            + "LIMIT 100\n"));
   }
 
   @Test public void testQuery55() {
@@ -92,7 +92,7 @@ public class TpcdsTest {
   }
 
   @Test public void testQuery72() {
-    assertThat(Query.Q72.sql(99, new Random(0)),
+    assertThat(Query.Q72.sql(new Random(0)),
         not(containsString("[")));
   }
 }

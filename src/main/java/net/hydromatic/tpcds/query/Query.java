@@ -17,6 +17,7 @@
 */
 package net.hydromatic.tpcds.query;
 
+import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
@@ -52,6 +53,18 @@ public enum Query {
 
   private static final Generator EMPTY = Generators.fixed("");
 
+  private static final ImmutableMap<String, Generator> BUILTIN_ARGS =
+      ImmutableMap.<String, Generator>builder()
+          .put("__LIMITA", EMPTY)
+          .put("__LIMITB", EMPTY)
+          .put("__LIMITC", Generators.fixed("LIMIT %d"))
+          .put("_QUERY", EMPTY)
+          .put("_STREAM", EMPTY)
+          .put("_TEMPLATE", EMPTY)
+          .put("_BEGIN", EMPTY)
+          .put("_END", EMPTY)
+          .build();
+
   Query() {
     id = Integer.valueOf(name().substring(1));
     Init init;
@@ -69,23 +82,32 @@ public enum Query {
     return values()[id - 1];
   }
 
-  public Iterable<Map.Entry<String, Generator>> allArgs(int limit) {
-    final ImmutableMap<String, Generator> builtinArgs =
-        ImmutableMap.of("_LIMITA", EMPTY,
-            "_LIMITB", EMPTY,
-            "_LIMITC", limit < 0 ? EMPTY : Generators.fixed("LIMIT " + limit),
-            "_BEGIN", EMPTY,
-            "_END", EMPTY);
-    return Iterables.concat(builtinArgs.entrySet(),
-        ImmutableMap.of("_QUERY", EMPTY,
-            "_STREAM", EMPTY,
-            "_TEMPLATE", EMPTY).entrySet(),
+  public Iterable<Map.Entry<String, Generator>> allArgs() {
+    final String limitString = args.get("_LIMIT").generate(new Random(0));
+    final int limit = Integer.parseInt(limitString);
+    final Function<String, String> transform =
+        new Function<String, String>() {
+          public String apply(String input) {
+            return String.format(input, limit);
+          }
+        };
+    final ImmutableMap<String, Generator> limits =
+        ImmutableMap.of("_LIMITA",
+            Generators.transform(BUILTIN_ARGS.get("__LIMITA"), transform),
+            "_LIMITB",
+            Generators.transform(BUILTIN_ARGS.get("__LIMITB"), transform),
+            "_LIMITC",
+            Generators.transform(BUILTIN_ARGS.get("__LIMITC"), transform));
+    return Iterables.concat(
+        BUILTIN_ARGS.entrySet(), limits.entrySet(),
         args.entrySet());
   }
 
-  public String sql(int limit, Random random) {
+  /** Returns the SQL query, by expanding all embedded variables using the
+   * given random-number generator. */
+  public String sql(Random random) {
     String s = template;
-    for (Map.Entry<String, Generator> entry : allArgs(limit)) {
+    for (Map.Entry<String, Generator> entry : allArgs()) {
       final String key = entry.getKey();
       final Generator generator = entry.getValue();
       String value = generator.generate(random);
@@ -145,6 +167,17 @@ public enum Query {
     /** Creates a generator that returns the same string every time. */
     public static Generator fixed(final String s) {
       return new FixedGenerator(s);
+    }
+
+    /** Creates a generator that applies a function to another generator. */
+    public static Generator transform(final Generator generator,
+        final Function<String, String> function) {
+      return new Generator() {
+        public String generate(Random random) {
+          final String s = generator.generate(random);
+          return function.apply(s);
+        }
+      };
     }
 
     /** Creates a generator that generates uniform values over an integer
