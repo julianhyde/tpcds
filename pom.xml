@@ -55,9 +55,24 @@
   </properties>
 
   <!-- Environment settings. -->
-  <distributionManagement/>
+  <distributionManagement>
+    <repository>
+      <id>conjars</id>
+      <name>Concurrent Conjars repository</name>
+      <url>http://conjars.org/repo</url>
+      <layout>default</layout>
+    </repository>
+    <site>
+      <id>tpcds.website</id>
+      <name>TPC-DS Website</name>
+      <url>file:/home/jhyde/web2/tpcds</url>
+    </site>
+  </distributionManagement>
 
-  <issueManagement/>
+  <issueManagement>
+    <system>github</system>
+    <url>https://github.com/julianhyde/tpcds/issues</url>
+  </issueManagement>
 
   <scm>
     <connection>scm:git:git://github.com/julianhyde/tpcds.git</connection>
