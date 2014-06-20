@@ -23,14 +23,14 @@ import java.util.Map;
 /**
  * TPC-DS generator. */
 public class Dsgen {
-  private final Map<String, Object> param;
+  protected final Map<String, Object> param;
 
   /** Creates a Dsgen. */
   public static Dsgen create() {
     return new Dsgen(new HashMap<String, Object>());
   }
 
-  private Dsgen(Map<String, Object> param) {
+  protected Dsgen(Map<String, Object> param) {
     this.param = param;
   }
 

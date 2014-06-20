@@ -22,4 +22,6 @@
 */
 -->
 <suppressions>
+  <!-- Suppress checks on work-in-progress Dsgen. -->
+  <suppress checks=".*" files="Dsgen0.java"/>
 </suppressions>
