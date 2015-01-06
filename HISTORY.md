@@ -2,6 +2,11 @@
 
 For a full list of releases, see <a href="https://github.com/julianhyde/tpcds/releases">github</a>.
 
+## <a href="https://github.com/julianhyde/tpcds/releases/tag/tpcds-0.2">0.2</a> / 2015-01-05
+
+* Upgrade guava, various maven plugins
+* Read _LIMIT from query template
+
 ## <a href="https://github.com/julianhyde/tpcds/releases/tag/tpcds-0.1">0.1</a> / 2014-06-18
 
 * First release
