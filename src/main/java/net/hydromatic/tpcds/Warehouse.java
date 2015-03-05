@@ -78,3 +78,5 @@ public class Warehouse implements TpcdsEntity {
         "%d|%s|%s|%d|%s|%s|%s|%s|");
   }
 }
+
+// End Warehouse.java

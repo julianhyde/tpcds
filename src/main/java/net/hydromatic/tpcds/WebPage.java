@@ -80,3 +80,5 @@ public class WebPage implements TpcdsEntity {
         "%d|%s|%s|%d|%s|%s|%s|%s|");
   }
 }
+
+// End WebPage.java

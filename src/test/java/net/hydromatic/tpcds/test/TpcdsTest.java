@@ -17,16 +17,19 @@
 */
 package net.hydromatic.tpcds.test;
 
-import net.hydromatic.tpcds.*;
-
+import net.hydromatic.tpcds.CallCenter;
+import net.hydromatic.tpcds.Dsgen;
+import net.hydromatic.tpcds.TpcdsTable;
 import net.hydromatic.tpcds.query.Query;
 
 import org.junit.Test;
 
 import java.util.Random;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
 
 /** Unit test for TPC-DS. */
 public class TpcdsTest {

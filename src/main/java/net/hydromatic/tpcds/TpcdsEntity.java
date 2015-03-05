@@ -22,4 +22,4 @@ public interface TpcdsEntity {
   String toLine();
 }
 
-// End TpcdsTable.java
+// End TpcdsEntity.java
