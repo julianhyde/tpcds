@@ -29,6 +29,7 @@ import java.util.Random;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 /** Unit test for TPC-DS. */
@@ -97,6 +98,12 @@ public class TpcdsTest {
   @Test public void testQuery72() {
     assertThat(Query.Q72.sql(new Random(0)),
         not(containsString("[")));
+  }
+
+  @Test public void testGenerateAll() {
+    for (Query query : Query.values()) {
+      assertThat(query.sql(new Random(0)), notNullValue());
+    }
   }
 }
 

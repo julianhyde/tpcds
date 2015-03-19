@@ -83,7 +83,11 @@ public enum Query {
   }
 
   public Iterable<Map.Entry<String, Generator>> allArgs() {
-    final String limitString = args.get("_LIMIT").generate(new Random(0));
+    final Generator limitArg = args.get("_LIMIT");
+    if (limitArg == null) {
+      return Iterables.concat(BUILTIN_ARGS.entrySet(), args.entrySet());
+    }
+    final String limitString = limitArg.generate(new Random(0));
     final int limit = Integer.parseInt(limitString);
     final Function<String, String> transform =
         new Function<String, String>() {
@@ -232,6 +236,12 @@ public enum Query {
 
     public static Generator parse(String s) {
       final String original = s;
+      if (s.equals("distmember(i_manager_id, [MGR_IDX], 2)")) {
+        s = "20";
+      }
+      if (s.equals("distmember(i_manager_id, [MGR_IDX], 3)")) {
+        s = "30";
+      }
       if (s.startsWith("text(")) {
         List<String> args = parseArgs(s, "text(", ")");
         if (args.size() == 1) {
