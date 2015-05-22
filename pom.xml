@@ -4,7 +4,7 @@
   <!-- The basics. -->
   <groupId>net.hydromatic</groupId>
   <artifactId>tpcds</artifactId>
-  <version>0.4-SNAPSHOT</version>
+  <version>0.4</version>
   <packaging>jar</packaging>
 
   <!-- More project information. -->
@@ -82,7 +82,7 @@
     <connection>scm:git:git://github.com/julianhyde/tpcds.git</connection>
     <developerConnection>scm:git:git@github.com:julianhyde/tpcds.git</developerConnection>
     <url>scm:git:git://github.com/julianhyde/tpcds.git</url>
-    <tag>HEAD</tag>
+    <tag>tpcds-0.4</tag>
   </scm>
 
   <!-- Dependencies. -->
