@@ -16,6 +16,20 @@ $ cd tpcds
 $ mvn install
 ```
 
+## Pre-built artifacts
+
+Each release is published to
+<a href="http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tpcds%22%20g%3A%22net.hydromatic%22">Maven central</a>.
+Add the following to the dependencies section of your `pom.xml`:
+
+```xml
+<dependency>
+  <groupId>net.hydromatic</groupId>
+  <artifactId>tpcds</artifactId>
+  <version>0.4</version>
+</dependency>
+```
+
 ## More information
 
 * License: Apache License, Version 2.0

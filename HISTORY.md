@@ -2,6 +2,13 @@
 
 For a full list of releases, see <a href="https://github.com/julianhyde/tpcds/releases">github</a>.
 
+## <a href="https://github.com/julianhyde/tpcds/releases/tag/tpcds-0.4">0.4</a> / 2015-05-22
+
+* Document how to get artifacts from Maven central
+* Not all queries have a `LIMIT` parameter
+* Add hack for `distmember`
+* Test that all queries can generate (something) successfully
+
 ## <a href="https://github.com/julianhyde/tpcds/releases/tag/tpcds-0.3">0.3</a> / 2015-03-05
 
 * Publish releases to <a href="http://search.maven.org/">Maven Central</a>
