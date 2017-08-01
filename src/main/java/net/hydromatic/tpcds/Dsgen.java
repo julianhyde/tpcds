@@ -27,7 +27,7 @@ public class Dsgen {
 
   /** Creates a Dsgen. */
   public static Dsgen create() {
-    return new Dsgen(new HashMap<String, Object>());
+    return new Dsgen0(new HashMap<String, Object>());
   }
 
   protected Dsgen(Map<String, Object> param) {

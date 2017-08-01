@@ -20,11 +20,17 @@ package net.hydromatic.tpcds;
 import java.io.*;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * TPC-DS generator. */
 class Dsgen0 extends Dsgen {
+
+  private static final TimeZone UTC_TIME_ZONE = TimeZone.getTimeZone("UTC");
+
   Dsgen0(Map<String, Object> param) {
     super(param);
   }
@@ -225,10 +231,13 @@ class Dsgen0 extends Dsgen {
    * <p>Algorithm: http://quasar.as.utexas.edu/BillInfo/JulianDatesG.html
    */
   static int dttoj(Date dt) {
-    int y, m, res;
+    Calendar calendar = Calendar.getInstance(UTC_TIME_ZONE, Locale.ROOT);
+    calendar.setTime(dt);
 
-    y = dt.getYear();
-    m = dt.getMonth();
+    int y = calendar.get(Calendar.YEAR);
+    int m = calendar.get(Calendar.MONTH);
+    int d = calendar.get(Calendar.DAY_OF_MONTH);
+
     if (m <= 2)
     {
       m += 12;
@@ -236,7 +245,7 @@ class Dsgen0 extends Dsgen {
     }
 
     // added 1 to get dttoj and jtodt to match
-    res = dt.getDay() + (153 * m - 457) / 5 + 365 * y + (y / 4) - (y / 100) + (y / 400) + 1721118 + 1;
+    int res = d + (153 * m - 457) / 5 + 365 * y + (y / 4) - (y / 100) + (y / 400) + 1721118 + 1;
 
     return(res);
   }
