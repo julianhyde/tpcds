@@ -17,9 +17,8 @@
 */
 package net.hydromatic.tpcds;
 
-import com.google.common.collect.Iterators;
-
 import java.sql.Date;
+import java.util.Collections;
 import java.util.Iterator;
 
 import static java.util.Locale.ENGLISH;
@@ -179,7 +178,7 @@ public class CallCenter implements TpcdsEntity {
     }
 
     public Iterator<CallCenter> iterator() {
-      return Iterators.emptyIterator();
+      return Collections.emptyIterator();
     }
   }
 }
