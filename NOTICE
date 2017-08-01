@@ -1,6 +1,6 @@
 tpcds
 Port of the TPC-DS data generator to Java.
-Copyright (C) 2014-2015, Julian Hyde
+Copyright (C) 2014-2017, Julian Hyde
 
 This product includes software developed by Julian Hyde
 (http://www.hydromatic.net).
